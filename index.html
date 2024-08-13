@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to PokeDot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/x-icon" href="asset/favicon.ico">
+</head>
+
+<body>
+    <!-- Login -->
+    <div id="Login" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8" style="display: none;">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <img class="mx-auto h-10 w-auto" src="asset/icon.png" alt="Your Company">
+            <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your
+                account</h2>
+        </div>
+
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+
+            <div>
+                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
+                <div class="mt-2">
+                    <input id="username" name="email" type="text" autocomplete="email" required
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+
+            <div>
+                <div class="flex items-center justify-between mt-2">
+                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+
+                </div>
+                <div class="mt-2">
+                    <input id="password" name="password" type="password" autocomplete="current-password" required
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+
+            <div>
+                <button onclick="login(event)"
+                    class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-4">Sign
+                    in</button>
+            </div>
+
+            <p class="mt-10 text-center text-sm text-gray-500">
+                Didn't have account?
+                <button onclick="changePage('Register', event)"
+                    class="text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Register</button>
+            </p>
+
+        </div>
+    </div>
+
+    <!-- Register -->
+    <div id="Register" class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+            <img class="mx-auto h-10 w-auto" src="asset/icon.png" alt="Your Company">
+            <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Create your
+                account</h2>
+        </div>
+
+        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+
+            <div>
+                <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
+                <div class="mt-2">
+                    <input id="usernameRegis" name="email" type="text" autocomplete="email" required
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+
+            <div>
+                <div class="flex items-center justify-between mt-2">
+                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+
+                </div>
+                <div class="mt-2">
+                    <input id="passwordRegis" name="password" type="password" autocomplete="current-password" required
+                        class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+
+            <div>
+                <button onclick="register(event)"
+                    class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-4">Register</button>
+            </div>
+            <p class="mt-10 text-center text-sm text-gray-500">
+                Already have account?
+                <button onclick="changePage('Login', event)"
+                    class="text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Login</button>
+            </p>
+
+
+        </div>
+    </div>
+
+    <script>
+        let users = [{
+            "username": "shiro",
+            "password": "inirahasia"
+        }]
+
+        function login() {
+
+
+            let userInput = document.getElementById('username').value
+            let passwordInput = document.getElementById('password').value
+
+
+            let findUser = users.find(el => el.username === userInput && el.password === passwordInput)
+            console.log(findUser)
+            if (!findUser) {
+                alert(`username/password salah`)
+                document.getElementById('username').value = ""
+                document.getElementById('password').value = ""
+            } else {
+                alert(`berhasil login`)
+                localStorage.setItem('username', userInput)
+                window.location.href = 'pokeworld.html'
+            }
+
+        }
+
+        function changePage(page) {
+
+            let listPage = ['Login', 'Register']
+
+            listPage.forEach(el => {
+                if (el === page) {
+                    document.getElementById(el).style.display = 'block'
+                } else {
+                    document.getElementById(el).style.display = 'none'
+                }
+            })
+        }
+
+        function register() {
+
+
+            let userInput = document.getElementById('usernameRegis').value
+            let passwordInput = document.getElementById('passwordRegis').value
+
+            if (!userInput || !passwordInput) {
+                alert(`username/password tidak boleh kosong`)
+                document.getElementById('usernameRegis').value = ""
+                document.getElementById('passwordRegis').value = ""
+                return
+            }
+
+            users.push({
+                "username": userInput,
+                "password": passwordInput
+            })
+
+            alert(`berhasil register`)
+            localStorage.setItem('username', userInput)
+            document.getElementById('usernameRegis').value = ""
+            document.getElementById('passwordRegis').value = ""
+            changePage('Login')
+        }
+    </script>
+</body>
+
+</html>
